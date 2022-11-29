@@ -67,7 +67,6 @@ namespace Activity_IS
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblPath = new System.Windows.Forms.Label();
-            this.Path = new Label();
             this.grpAction = new System.Windows.Forms.GroupBox();
             this.bFind = new System.Windows.Forms.RadioButton();
             this.bDraw = new System.Windows.Forms.RadioButton();
@@ -288,8 +287,6 @@ namespace Activity_IS
                             else if (this.iSelectedY + 1 >= 0 && this.iSelectedY + 1 < m_iRowDimensions && m_iMaze[this.iSelectedY + 1, this.iSelectedX] == 100)
                                 this.iSelectedY++;
 
-
- 
                             if (iSelectedX != iX || iSelectedY != iY - 1)
                             {
                                 this.Path.Text += " -> ";
