@@ -315,7 +315,7 @@ namespace Activity_IS
                     if (iSolvedMaze != null)
                     {
                         m_iMaze = iSolvedMaze;
-                        this.lblPath.Text = "" + iSelectedY + "," + iSelectedX + " to " + iY + "," + iX;  
+                        this.lblPath.Text = "" + (iSelectedY) + "," + (iSelectedX+1) + " to " + (iY) + "," + (iX+1);  
                     }
                     else
                         this.lblPath.Text = "No Path Found";
