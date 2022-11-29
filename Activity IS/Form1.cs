@@ -25,9 +25,7 @@ namespace Activity_IS
         private RadioButton bFind;
         private Label lblPathCaption;
         private Button cmdReset;
-        private Button button1;
         private Button cmdExit;
-        private CheckBox chkDiagonal;
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -69,16 +67,16 @@ namespace Activity_IS
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblPath = new System.Windows.Forms.Label();
+            this.Path = new Label();
             this.grpAction = new System.Windows.Forms.GroupBox();
             this.bFind = new System.Windows.Forms.RadioButton();
             this.bDraw = new System.Windows.Forms.RadioButton();
             this.lblPathCaption = new System.Windows.Forms.Label();
             this.cmdReset = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.cmdExit = new System.Windows.Forms.Button();
-            this.chkDiagonal = new System.Windows.Forms.CheckBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.Path = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.grpAction.SuspendLayout();
             this.SuspendLayout();
@@ -99,10 +97,16 @@ namespace Activity_IS
             // lblPath
             // 
             this.lblPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPath.Location = new System.Drawing.Point(472, 208);
+            this.lblPath.Location = new System.Drawing.Point(464, 159);
             this.lblPath.Name = "lblPath";
             this.lblPath.Size = new System.Drawing.Size(128, 16);
             this.lblPath.TabIndex = 3;
+            //Path
+            this.Path.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Path.Location = new System.Drawing.Point(494, 159);
+            this.Path.Name = "Path";
+            this.Path.Size = new System.Drawing.Size(128, 16);
+            this.Path.TabIndex = 3;
             // 
             // grpAction
             // 
@@ -138,7 +142,7 @@ namespace Activity_IS
             // lblPathCaption
             // 
             this.lblPathCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPathCaption.Location = new System.Drawing.Point(472, 192);
+            this.lblPathCaption.Location = new System.Drawing.Point(469, 134);
             this.lblPathCaption.Name = "lblPathCaption";
             this.lblPathCaption.Size = new System.Drawing.Size(100, 16);
             this.lblPathCaption.TabIndex = 5;
@@ -146,39 +150,21 @@ namespace Activity_IS
             // 
             // cmdReset
             // 
-            this.cmdReset.Location = new System.Drawing.Point(472, 248);
+            this.cmdReset.Location = new System.Drawing.Point(472, 249);
             this.cmdReset.Name = "cmdReset";
             this.cmdReset.Size = new System.Drawing.Size(104, 24);
             this.cmdReset.TabIndex = 6;
             this.cmdReset.Text = "&Reset Maze";
             this.cmdReset.Click += new System.EventHandler(this.cmdReset_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(472, 288);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 24);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "&About";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // cmdExit
             // 
-            this.cmdExit.Location = new System.Drawing.Point(472, 328);
+            this.cmdExit.Location = new System.Drawing.Point(472, 294);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(104, 24);
             this.cmdExit.TabIndex = 8;
             this.cmdExit.Text = "E&xit";
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
-            // 
-            // chkDiagonal
-            // 
-            this.chkDiagonal.Location = new System.Drawing.Point(472, 144);
-            this.chkDiagonal.Name = "chkDiagonal";
-            this.chkDiagonal.Size = new System.Drawing.Size(112, 24);
-            this.chkDiagonal.TabIndex = 9;
-            this.chkDiagonal.Text = "Allow Diagonals";
-            this.chkDiagonal.CheckedChanged += new System.EventHandler(this.chkDiagonal_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -200,15 +186,21 @@ namespace Activity_IS
             this.radioButton2.Text = "GBFS";
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
+            // Path
+            // 
+            this.Path.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Path.Location = new System.Drawing.Point(400, 184);
+            this.Path.Size = new System.Drawing.Size(192, 52);
+            this.Path.TabIndex = 11;
+            // 
             // frmMain
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(608, 381);
+            this.Controls.Add(this.Path);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.chkDiagonal);
             this.Controls.Add(this.cmdExit);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.cmdReset);
             this.Controls.Add(this.lblPathCaption);
             this.Controls.Add(this.grpAction);
@@ -235,6 +227,7 @@ namespace Activity_IS
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
+            Path.Text = "";
             Graphics myGraphics = e.Graphics;
             for (int i = 0; i < m_iRowDimensions; i++)
                 for (int j = 0; j < m_iColDimensions; j++)
@@ -251,7 +244,15 @@ namespace Activity_IS
                     }
                     //print path
                     if (m_iMaze[i, j] == 100)
+                    {
                         myGraphics.FillRectangle(new SolidBrush(Color.PeachPuff), j * m_iSize + 1, i * m_iSize + 1, m_iSize - 1, m_iSize - 1);
+                        this.Path.Text += (i * 10) + 1 + j + "";
+                        if (i != m_iRowDimensions-1  || j != m_iColDimensions-1 )
+                        {
+                            this.Path.Text += " -> ";
+                        }
+
+                    }
                 }
             //print ball
             myGraphics.FillEllipse(new SolidBrush(Color.Tomato), this.iSelectedX * m_iSize + 5, this.iSelectedY * m_iSize + 5, m_iSize - 10, m_iSize - 10);
@@ -291,18 +292,10 @@ namespace Activity_IS
                             else if (this.iSelectedY + 1 >= 0 && this.iSelectedY + 1 < m_iRowDimensions && m_iMaze[this.iSelectedY + 1, this.iSelectedX] == 100)
                                 this.iSelectedY++;
 
-                            // move diagonal
-                            else if (this.iSelectedY + 1 >= 0 && this.iSelectedY + 1 < m_iRowDimensions && this.iSelectedX + 1 >= 0 && this.iSelectedX + 1 < m_iColDimensions && m_iMaze[this.iSelectedY + 1, this.iSelectedX + 1] == 100)
-                            { this.iSelectedX++; this.iSelectedY++; }
-                            else if (this.iSelectedY - 1 >= 0 && this.iSelectedY - 1 < m_iRowDimensions && this.iSelectedX + 1 >= 0 && this.iSelectedX + 1 < m_iColDimensions && m_iMaze[this.iSelectedY - 1, this.iSelectedX + 1] == 100)
-                            { this.iSelectedX++; this.iSelectedY--; }
-                            else if (this.iSelectedY + 1 >= 0 && this.iSelectedY + 1 < m_iRowDimensions && this.iSelectedX - 1 >= 0 && this.iSelectedX - 1 < m_iColDimensions && m_iMaze[this.iSelectedY + 1, this.iSelectedX - 1] == 100)
-                            { this.iSelectedX--; this.iSelectedY++; }
-                            else if (this.iSelectedY - 1 >= 0 && this.iSelectedY - 1 < m_iRowDimensions && this.iSelectedX - 1 >= 0 && this.iSelectedX - 1 < m_iColDimensions && m_iMaze[this.iSelectedY - 1, this.iSelectedX - 1] == 100)
-                            { this.iSelectedX--; this.iSelectedY--; }
-
+                            
                             this.Refresh();
                         }
+                        this.Path.Text += (iSelectedY * 10) + 1 + iSelectedX + "";
                     }
                 }
 
@@ -319,6 +312,7 @@ namespace Activity_IS
                 if (this.bDraw.Checked == false)
                 {
                     int[,] iSolvedMaze = m_Maze.FindPath(iSelectedY, iSelectedX, iY, iX, radioButton1.Checked);
+
                     if (iSolvedMaze != null)
                     {
                         m_iMaze = iSolvedMaze;
@@ -341,7 +335,6 @@ namespace Activity_IS
 
         private void bFind_CheckedChanged(object sender, System.EventArgs e)
         {
-            this.m_Maze.AllowDiagonals = this.chkDiagonal.Checked;
             this.lblPath.Visible = true;
             this.lblPathCaption.Visible = true;
         }
@@ -349,24 +342,10 @@ namespace Activity_IS
         private void cmdReset_Click(object sender, System.EventArgs e)
         {
             m_Maze = new Activity_IS.Program(m_iRowDimensions, m_iColDimensions);
-            m_Maze.AllowDiagonals = this.chkDiagonal.Checked;
             m_iMaze = m_Maze.GetMaze;
             this.Refresh();
         }
 
-        private void button1_Click(object sender, System.EventArgs e)
-        {
-
-            MessageBox.Show(
-              " Maze Solver Demo" +
-            "\n              by" +
-            "\n Syed Mehroz Alam" +
-            "\n Email: smehrozalam@yahoo.com" +
-            "\n Homepage: Programming Home" +
-            "\n URL: http://www.geocities.com/smehrozalam/" +
-            "\n\n Visit my site to get other programs by me"
-            , "About this program");
-        }
 
         private void cmdExit_Click(object sender, System.EventArgs e)
         {
@@ -376,11 +355,6 @@ namespace Activity_IS
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void chkDiagonal_CheckedChanged(object sender, System.EventArgs e)
-        {
-            m_Maze.AllowDiagonals = chkDiagonal.Checked;
         }
 
         private RadioButton radioButton1;
@@ -402,5 +376,6 @@ namespace Activity_IS
         }
 
         private RadioButton radioButton2;
+        private Label Path;
     }
 }
