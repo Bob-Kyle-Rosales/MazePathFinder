@@ -5,7 +5,7 @@
 - In the "wall" of the maze, it will indicate a different color with an 'X' mark.
 - I also added a new Informed searching algorithm called Greedy Best First Search.
 - The implemented Greedy Best First Search incorporates queue behaviour with the lowest heuristic value
-  to be enqueue first.
+  to be be put in the queue first.
 - I implemented a manhattan distance for the heuristic value that changes according
   to the destination or end path.
 
