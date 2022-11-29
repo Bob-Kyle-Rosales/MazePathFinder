@@ -227,7 +227,6 @@ namespace Activity_IS
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            Path.Text = "";
             Graphics myGraphics = e.Graphics;
             for (int i = 0; i < m_iRowDimensions; i++)
                 for (int j = 0; j < m_iColDimensions; j++)
@@ -246,12 +245,7 @@ namespace Activity_IS
                     if (m_iMaze[i, j] == 100)
                     {
                         myGraphics.FillRectangle(new SolidBrush(Color.PeachPuff), j * m_iSize + 1, i * m_iSize + 1, m_iSize - 1, m_iSize - 1);
-                        this.Path.Text += (i * 10) + 1 + j + "";
-                        if (i != m_iRowDimensions-1  || j != m_iColDimensions-1 )
-                        {
-                            this.Path.Text += " -> ";
-                        }
-
+                       
                     }
                 }
             //print ball
@@ -261,6 +255,7 @@ namespace Activity_IS
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            this.Path.Text = "";
             int iX = e.X / m_iSize;
             int iY = e.Y / m_iSize;
             if (iX < m_iColDimensions && iX >= 0 && iY < m_iRowDimensions && iY >= 0)
@@ -281,6 +276,7 @@ namespace Activity_IS
                         //move step by step until the required position is achieved
                         while (this.iSelectedX != iX || this.iSelectedY != iY)
                         {
+                            this.Path.Text += (iSelectedY * 10) + 1 + iSelectedX + "";
                             m_iMaze[this.iSelectedY, this.iSelectedX] = 0;
 
                             if (this.iSelectedX - 1 >= 0 && this.iSelectedX - 1 < m_iColDimensions && m_iMaze[this.iSelectedY, this.iSelectedX - 1] == 100)
@@ -292,7 +288,13 @@ namespace Activity_IS
                             else if (this.iSelectedY + 1 >= 0 && this.iSelectedY + 1 < m_iRowDimensions && m_iMaze[this.iSelectedY + 1, this.iSelectedX] == 100)
                                 this.iSelectedY++;
 
-                            
+
+ 
+                            if (iSelectedX != iX || iSelectedY != iY - 1)
+                            {
+                                this.Path.Text += " -> ";
+                            }
+
                             this.Refresh();
                         }
                         this.Path.Text += (iSelectedY * 10) + 1 + iSelectedX + "";
@@ -316,7 +318,7 @@ namespace Activity_IS
                     if (iSolvedMaze != null)
                     {
                         m_iMaze = iSolvedMaze;
-                        this.lblPath.Text = "" + iSelectedY + "," + iSelectedX + " to " + iY + "," + iX;
+                        this.lblPath.Text = "" + iSelectedY + "," + iSelectedX + " to " + iY + "," + iX;  
                     }
                     else
                         this.lblPath.Text = "No Path Found";

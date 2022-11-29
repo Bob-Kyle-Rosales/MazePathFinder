@@ -149,7 +149,6 @@ namespace Activity_IS
             int iCols = m_iCols;
             int iMax = iRows * iCols;
             int[] Queue = new int[iMax];
-            int[] Stack = new int[iMax];
             int[] Origin = new int[iMax];
             int iFront = 0, iRear = 0;
 
@@ -252,6 +251,7 @@ namespace Activity_IS
                     }
                 }
             }
+                // the new added feature   
             else // Greedy Best First Search with QUEUE
             {
                 //Getting the coordinates of destination
@@ -289,7 +289,7 @@ namespace Activity_IS
                     iLeft = iCurrent - 1;
                     iRight = iCurrent + 1;
 
-                    // checking the heuristic values in directions that are available
+                    // checking the heuristic values in all directions that are available
                     if (iTop >= 0)
                     {
                         hTop = GetNodeContents(heuristic, iTop);
@@ -312,7 +312,7 @@ namespace Activity_IS
                     Array.Sort(array);          //arrange the heuristic values in assending order
 
                     for(int i=0; i<array.Length; i++)   //enqueue the nodes in-order of the arranged array
-                    {
+                    {                                   // start enqueue the smallest up to the largest
                         if (iTop >= 0)                  //if top node exists
                             if (GetNodeContents(m_iMaze, iTop) == empty)    //if top node is open(a path exists)
                                 if (GetNodeContents(iMazeStatus, iTop) == (int)Status.Ready)    //if top node is ready
